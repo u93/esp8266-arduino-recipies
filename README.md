@@ -25,14 +25,14 @@ In the following examples will be showed the use of different libraries and prot
 - HTTPS
 - MQTT
   - [MQTT Essentials](https://www.hivemq.com/mqtt-essentials/)
-  - [pubsubclient](https://github.com/knolleary/pubsubclient) as the library for MQTT use in ESP8266 with Arduino IDE
+  - [pubsubclient](https://github.com/Imroy/pubsubclient) as the library for MQTT use in ESP8266 with Arduino IDE
     - MIT Licence
 - WebSockets
   - [Websockets Tutorial](https://www.tutorialspoint.com/websockets/index.htm)
   - [Websockets Library](https://github.com/morrissinger/ESP8266-Websocket) for client and server implementation
 
 ## Scheduling Events
-- Ticker library
+- [Ticker library](https://github.com/esp8266/Arduino/tree/master/libraries/Ticker) is used to trigger functions every a certain time. Make sure to follow [recomendations](http://arduino-esp8266.readthedocs.io/en/latest/libraries.html) from ESP8266 Arduino Core
 
 ## OTA Upgrades from Remote Server
 
@@ -46,3 +46,4 @@ In the following examples will be showed the use of different libraries and prot
 
 
 ## Internal SDK use
+- Arduino Core for ESP8266 allows the use for ESP-specific APIs with the objective of get information from board and firmware, and trigger certain functionalities like deepsleep and measuring power supply voltage. The information on how to use these [ESP-specific APIs](https://github.com/Imroy/pubsubclient) can be found in Arduino Core Documentation 
