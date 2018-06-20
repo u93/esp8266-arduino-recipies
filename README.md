@@ -28,6 +28,8 @@ In the following examples will be showed the use of different libraries and prot
   - [pubsubclient](https://github.com/knolleary/pubsubclient) as the library for MQTT use in ESP8266 with Arduino IDE
     - MIT Licence
 - WebSockets
+  - [Websockets Tutorial](https://www.tutorialspoint.com/websockets/index.htm)
+  - [Websockets Library](https://github.com/morrissinger/ESP8266-Websocket) for client and server implementation
 
 ## Scheduling Events
 - Ticker library
