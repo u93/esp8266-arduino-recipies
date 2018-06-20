@@ -34,7 +34,9 @@ In the following examples will be showed the use of different libraries and prot
 ## Scheduling Events
 - [Ticker library](https://github.com/esp8266/Arduino/tree/master/libraries/Ticker) is used to trigger functions every a certain time. Make sure to follow [recomendations](http://arduino-esp8266.readthedocs.io/en/latest/libraries.html) from ESP8266 Arduino Core
 
-## OTA Upgrades from Remote Server
+## OTA Upgrades
+- Follow [OTA documentation](http://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html) on Arduino Core for understanding on how OTA Upgrade works and the several ways to do it
+- Read the following [tutorial](https://www.bakke.online/index.php/2017/06/02/self-updating-ota-firmware-for-esp8266/) that acts as both example and documentation
 
 
 
