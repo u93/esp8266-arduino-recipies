@@ -11,8 +11,12 @@ In the following examples will be showed the use of different libraries and prot
 
 ## Integration examples
 - dweet.io
+  - [Website](http://dweet.io/)
+  - [Example]()
 - API Gateway
 - AWS IoT Core
+  - Use of [AWS-SDK]() for ESP8266 for use of IoT Core
+  - [Example]()
 - S3
 - MQTT Mosquitto Broker
 - WebSockets Communication
