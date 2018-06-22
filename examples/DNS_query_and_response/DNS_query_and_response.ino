@@ -4,13 +4,8 @@
 
 
 //defined ssid name and password used to connect to WiFi
-
-//const char* ssid = "****";
-//const char* password = "****";
-
-const char* ssid = "theForceIsStrongInThisOne";
-const char* password = "bR0k3n.#!N0m4d$_";
-
+const char* ssid = "****";
+const char* password = "****";
 
 //WiFiUdp objects need a port to listen, a buffer for incoming packets and a reply message
 WiFiUDP udp; //here an instance of the WiFiUdp object was created
