@@ -2,8 +2,8 @@
 #include <WiFiUdp.h> //general library used to handle UDP send and receive. In this case is going to be used to handle DNS and NTP communications
 
 //defined ssid name and password used to connect to WiFi
-const char* ssid = "theForceIsStrongInThisOne";
-char* password = "bR0k3n.#!N0m4d$_";
+const char* ssid = "*****";
+const char* password = "*****";
 
 
 //WiFiUdp objects need a port to listen, a buffer for incoming packets and a reply message
