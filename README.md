@@ -11,8 +11,12 @@ In the following examples will be showed the use of different libraries and prot
 
 ## Integration examples
 - dweet.io
+  - [Website](http://dweet.io/)
+  - [Example]()
 - API Gateway
 - AWS IoT Core
+  - Use of [AWS-SDK]() for ESP8266 for use of IoT Core
+  - [Example]()
 - S3
 - MQTT Mosquitto Broker
 - WebSockets Communication
@@ -37,6 +41,7 @@ In the following examples will be showed the use of different libraries and prot
 ## OTA Upgrades
 - Follow [OTA documentation](http://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html) on Arduino Core for understanding on how OTA Upgrade works and the several ways to do it
 - Read the following [tutorial](https://www.bakke.online/index.php/2017/06/02/self-updating-ota-firmware-for-esp8266/) that acts as both example and documentation
+- Here can be found an [Example Code](https://github.com/esp8266-examples/ota-basic) plus a tutorial on how implement OTA functions and how to use them. 
 
 
 
