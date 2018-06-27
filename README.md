@@ -8,6 +8,13 @@ In the following examples will be showed the use of different libraries and prot
 
 ## ESP8266 Wiring and Power Supply
 
+## Flash Firmware to ESP8266
+- ESP8266 has to be set in BOOTLOADER mode, for this to happen the ESP8266 needs to be powered up with GP 0 pin set to "ground" in order to set it in BOOTLOADER mode.
+  - If you have a firmware already uploaded you can confirm that the Wi-Fi module is ready to receive a new firmware due to "Serial Logs" absence. 
+  - In some cases you will see some errors like "espcomm_upload_mem failed" twice this could be the ESP9266 is not set in BOOTLOADER mode.
+  - Always make sure that in Tools/Port of the Arduino IDE you have selected the USB Port that has connection to the Wi-Fi module.
+    - In Linux (Ubuntu in this case) could exist "lack of permissions to use the USB port", in that case you will see an error like "espcomm_open failed" and "espcomm_upload_mem failed". In that case the next command has to be executed every time that you plan to set a new firmware using the Serial Port "sudo chmod -R 777 /dev/ttyUSB0" changing "ttyUSB0" for you actual serial port with connection to the ESP8266 
+
 
 ## Integration examples
 - dweet.io
