@@ -10,8 +10,8 @@ int FS_COUNTER;
 
 
 //defined ssid name and password used to connect to Wi-Fi.
-const char* ssid = "theForceIsStrongInThisOne";
-const char* password = "bR0k3n.#!N0m4d$_";
+const char* ssid = "*****";
+const char* password = "*****";
 
 
 
@@ -32,10 +32,6 @@ byte packetBuffer[255]; //Buffer the generic buffer for receiving packets.
 
 //Here are defined instances of the class IPAddress to use for functionality and testing.
 IPAddress dnsserver(8, 8, 8, 8);
-
-
-//Here are defined ESP8266 native SDK variables and functions.
-ADC_MODE (ADC_VCC); //Necessary requirement to use ESP.getVcc(), allows to reconfigure the ADC to measure from VCC pin.
 
 //Others
 long int unix_time;
