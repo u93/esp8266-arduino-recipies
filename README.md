@@ -50,7 +50,10 @@ In the following examples will be showed the use of different libraries and prot
 - Read the following [tutorial](https://www.bakke.online/index.php/2017/06/02/self-updating-ota-firmware-for-esp8266/) that acts as both example and documentation
 - Here can be found an [Example Code](https://github.com/esp8266-examples/ota-basic) plus a tutorial on how implement OTA functions and how to use them. 
 
-
+## SPIFFS
+- [SPIFFS](https://github.com/esp8266/Arduino/blob/master/cores/esp8266/spiffs/README.md) stands for SPI Flash File System, and can be used in the ESP8266 to store files like certificates for secure communication.
+- For information about how the File System works, itś limitations and how to implement ypur code visit [here](https://github.com/esp8266/Arduino/blob/master/doc/filesystem.rst)
+  - Information about your chip flash size can be obtained using ESP-specific SDK as hown in [example](https://github.com/eebf1993/myesp8266/blob/master/examples/SPIFFS_Mount_Format_Listing/SPIFFS_Mount_Format_Listing.ino)
 
 ## Espressif Documentation
 - [ESP8266_Datasheet](https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf)
