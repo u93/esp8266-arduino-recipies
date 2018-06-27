@@ -18,12 +18,15 @@ In the following examples will be showed the use of different libraries and prot
 
 ## Integration examples
 - dweet.io
-  - [Website](http://dweet.io/)
-  - [Example]()
+  - To learn about Dweet visit the [website](http://dweet.io/).
+  - To see a way of how to implement review the next [example]().
 - API Gateway
+  - To use API Gateway from the ESP8266 side is only necessary to use WiFiClientSecure library for HTTPS communication.
+  - A deployment of API Gateway will be needed in order to test the functionality.
+  - To see a way of how to implement review the next [example](https://github.com/eebf1993/myesp8266/tree/master/examples/DNS-NTP_HTTPS-API_Gateway).
 - AWS IoT Core
-  - Use of [AWS-SDK]() for ESP8266 for use of IoT Core
-  - [Example]()
+  - Use of [AWS-SDK]() for ESP8266 for use of IoT Core.
+  - To see a way of how to implement review the next [example]().
 - S3
 - MQTT Mosquitto Broker
 - WebSockets Communication
@@ -43,17 +46,17 @@ In the following examples will be showed the use of different libraries and prot
   - [Websockets Library](https://github.com/morrissinger/ESP8266-Websocket) for client and server implementation
 
 ## Scheduling Events
-- [Ticker library](https://github.com/esp8266/Arduino/tree/master/libraries/Ticker) is used to trigger functions every a certain time. Make sure to follow [recomendations](http://arduino-esp8266.readthedocs.io/en/latest/libraries.html) from ESP8266 Arduino Core
+- [Ticker library](https://github.com/esp8266/Arduino/tree/master/libraries/Ticker) is used to trigger functions every a certain time. Make sure to follow [recomendations](http://arduino-esp8266.readthedocs.io/en/latest/libraries.html) from ESP8266 Arduino Core.
 
 ## OTA Upgrades
-- Follow [OTA documentation](http://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html) on Arduino Core for understanding on how OTA Upgrade works and the several ways to do it
-- Read the following [tutorial](https://www.bakke.online/index.php/2017/06/02/self-updating-ota-firmware-for-esp8266/) that acts as both example and documentation
+- Follow [OTA documentation](http://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html) on Arduino Core for understanding on how OTA Upgrade works and the several ways to do it.
+- Read the following [tutorial](https://www.bakke.online/index.php/2017/06/02/self-updating-ota-firmware-for-esp8266/) that acts as both example and documentation.
 - Here can be found an [Example Code](https://github.com/esp8266-examples/ota-basic) plus a tutorial on how implement OTA functions and how to use them. 
 
 ## SPIFFS
 - [SPIFFS](https://github.com/esp8266/Arduino/blob/master/cores/esp8266/spiffs/README.md) stands for SPI Flash File System, and can be used in the ESP8266 to store files like certificates for secure communication.
-- For information about how the File System works, itś limitations and how to implement ypur code visit [here](https://github.com/esp8266/Arduino/blob/master/doc/filesystem.rst)
-  - Information about your chip flash size can be obtained using ESP-specific SDK as hown in [example](https://github.com/eebf1993/myesp8266/blob/master/examples/SPIFFS_Mount_Format_Listing/SPIFFS_Mount_Format_Listing.ino)
+- For information about how the File System works, itś limitations and how to implement ypur code visit [here](https://github.com/esp8266/Arduino/blob/master/doc/filesystem.rst).
+  - Information about your chip flash size can be obtained using ESP-specific SDK as hown in [example](https://github.com/eebf1993/myesp8266/blob/master/examples/SPIFFS_Mount_Format_Listing/SPIFFS_Mount_Format_Listing.ino).
 
 ## Espressif Documentation
 - [ESP8266_Datasheet](https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf)
@@ -63,4 +66,4 @@ In the following examples will be showed the use of different libraries and prot
 
 
 ## Internal SDK use
-- Arduino Core for ESP8266 allows the use for ESP-specific APIs with the objective of get information from board and firmware, and trigger certain functionalities like deepsleep and measuring power supply voltage. The information on how to use these [ESP-specific APIs](https://github.com/Imroy/pubsubclient) can be found in Arduino Core Documentation 
+- Arduino Core for ESP8266 allows the use for ESP-specific APIs with the objective of get information from board and firmware, and trigger certain functionalities like deepsleep and measuring power supply voltage. The information on how to use these [ESP-specific APIs](https://github.com/Imroy/pubsubclient) can be found in Arduino Core Documentation.
