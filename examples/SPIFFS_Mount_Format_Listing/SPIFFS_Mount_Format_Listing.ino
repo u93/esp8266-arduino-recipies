@@ -70,6 +70,7 @@ void setup() {
     Serial.println(int_chk);
   }
 
+  getESP8266_fixed_info(); //Shows information about Sketch Size, Flash Size using ESP-spcefic SDK
   
   //Mounting File System, if File System mounting process fails, it will try it again.
   up_FS: SPIFFS.begin();
@@ -199,7 +200,7 @@ IPAddress readDNSpacket() {
   }
  }
 
-int getESP8266_fixed_info() {
+void getESP8266_fixed_info() {
   int sketch_size = ESP.getSketchSize();
   int free_sketch_size = ESP.getFreeSketchSpace();
   int flash_size = ESP.getFlashChipSize();
