@@ -102,7 +102,7 @@ void setup() {
     delay (10);
   
     //Here will be the code for firmware check and upgrade process
-    firmware_check(firmware_version, unix_time, CHIP_ID);
+    firmware_check(firmware_version, model, CHIP_ID, unix_time);
     //t_httpUpdate_return ret = ESPhttpUpdate.update("http://server/file.bin");
     //ESPhttpUpdate.update("192.168.0.2", httpPort, "/arduino.bin");
   
