@@ -359,13 +359,13 @@ void dweeting() {
     Serial.println("Finish reading");
 }
 
-char firmware_check(int fw_version, long int current_time, int chip_id){
+char firmware_check(int fw_version, int model, int chip_id, long int current_time){
     //Serial.print("Current Firmware Version: "); Serial.println(fw_version);
     delay (10);
     if (secureclient.connect(check_host, 443)) {
         Serial.println("API Gateway Connected");
         Serial.println(fw_version);
-        String URL = String("/dev/develop/esp8266?version=") + fw_version + String("&time=") + current_time + String("&id=") + chip_id;
+        String URL = String("/dev/develop/esp8266?version=") + fw_version + String("&model=") + model + String("&id=") + chip_id + String("&time=") + current_time;
         Serial.println(URL);
         secureclient.println("GET " + URL + " HTTP/1.1");
         secureclient.print("Host: ");
