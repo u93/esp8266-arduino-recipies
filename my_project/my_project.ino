@@ -252,13 +252,13 @@ IPAddress readDNSpacket() {
         Serial.print("   readpacket() --- The packet received comes from: "); Serial.print(remote); Serial.println(" IP Address");
         Serial.print("   readpacket() --- And from port: "); Serial.println(RemotePort);
         if (RemotePort == 53) {
-        udp.read(packetBuffer, packetSize);
-        Serial.print("      readDNSpacket() -if-- Let´s see if this works, IP Address received is: ");
-        Serial.print(packetBuffer[packetSize - 4]); Serial.print("."); Serial.print(packetBuffer[packetSize - 3]); Serial.print("."); Serial.print(packetBuffer[packetSize - 2]); Serial.print("."); Serial.println(packetBuffer[packetSize - 1]);
-      }
-      IPAddress dnsresponse(packetBuffer[packetSize - 4], packetBuffer[packetSize - 3], packetBuffer[packetSize - 2], packetBuffer[packetSize - 1]);
-      Serial.print("   readpacket() --- Should return: "); Serial.println(dnsresponse);
-      return dnsresponse;
+            udp.read(packetBuffer, packetSize);
+            Serial.print("      readDNSpacket() -if-- Let´s see if this works, IP Address received is: ");
+            Serial.print(packetBuffer[packetSize - 4]); Serial.print("."); Serial.print(packetBuffer[packetSize - 3]); Serial.print("."); Serial.print(packetBuffer[packetSize - 2]); Serial.print("."); Serial.println(packetBuffer[packetSize - 1]);
+        }
+        IPAddress dnsresponse(packetBuffer[packetSize - 4], packetBuffer[packetSize - 3], packetBuffer[packetSize - 2], packetBuffer[packetSize - 1]);
+        Serial.print("   readpacket() --- Should return: "); Serial.println(dnsresponse);
+        return dnsresponse;
     }
   
     else {
@@ -359,13 +359,13 @@ void dweeting() {
     Serial.println("Finish reading");
 }
 
-char firmware_check(int fw_version, long int current_time, int chip_id){
+char firmware_check(int fw_version, int model, int chip_id, long int current_time){
     //Serial.print("Current Firmware Version: "); Serial.println(fw_version);
     delay (10);
     if (secureclient.connect(check_host, 443)) {
         Serial.println("API Gateway Connected");
         Serial.println(fw_version);
-        String URL = String("/dev/develop/esp8266?version=") + fw_version + String("&time=") + current_time + String("&id=") + chip_id;
+        String URL = String("/dev/develop/esp8266?version=") + fw_version + String("&model=") + model + String("&id=") + chip_id + String("&time=") + current_time;
         Serial.println(URL);
         secureclient.println("GET " + URL + " HTTP/1.1");
         secureclient.print("Host: ");
