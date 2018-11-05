@@ -2,7 +2,7 @@
 #include <WiFiClientSecure.h> //enable HTTPS to handle Cloud Services like API Gateway
 #include "FS.h" //library used to handle the ESP8266´s File System
 #include <WiFiUdp.h> //general library used to handle UDP send and receive. In this case is going to be used to handle DNS and NTP communications
-#include <Ticker.h>// THis library allows the creation of an object that will call a given function after a certain period
+#include <Ticker.h>// This library allows the creation of an object that will call a given function after a certain period
 #include <ESP8266httpUpdate.h>
 #include <ArduinoJson.h>
 
@@ -383,7 +383,7 @@ char status_report() {
     delay (10);
     if (secureclient.connect(API_ROOT, SSL_PORT)) {
         Serial.println("API Gateway Connected");
-        String URL = String("/dev/develop/esp8266?freeheap=") + heap_free_size + String("&vcc=") + power_supply_v + String("&id=") + CHIP_ID + String("&time=") + unix_time;
+        String URL = String("/dev/develop/esp8266/statusreport?freeheap=") + heap_free_size + String("&vcc=") + power_supply_v + String("&id=") + CHIP_ID + String("&time=") + unix_time;
         Serial.println(URL);
         secureclient.println("GET " + URL + " HTTP/1.1");
         secureclient.print("Host: ");
@@ -409,7 +409,7 @@ char firmware_check(int fw_version, int model, int chip_id, long int current_tim
     if (secureclient.connect(API_ROOT, SSL_PORT)) {
         Serial.println("API Gateway Connected");
         Serial.println(fw_version);
-        String URL = String("/dev/develop/esp8266?version=") + firmware_version + String("&model=") + model + String("&id=") + CHIP_ID + String("&time=") + unix_time;
+        String URL = String("/dev/develop/esp8266/update?version=") + firmware_version + String("&model=") + model + String("&id=") + CHIP_ID + String("&time=") + unix_time;
         Serial.println(URL);
         secureclient.println("GET " + URL + " HTTP/1.1");
         secureclient.print("Host: ");
