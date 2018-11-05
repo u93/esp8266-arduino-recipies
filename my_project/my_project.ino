@@ -47,7 +47,6 @@ const char* IPINFO_HOST = "ipinfo.io";
 
 //Ticker library related variables, constants and objects 
 bool FIRST_FLAG;
-bool HELP_FLAG = false;
 Ticker Networking;
 Ticker Info;
 
