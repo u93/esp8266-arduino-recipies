@@ -4,12 +4,12 @@
 #include <WiFiUdp.h> //general library used to handle UDP send and receive. In this case is going to be used to handle DNS and NTP communications
 #include <Ticker.h>// THis library allows the creation of an object that will call a given function after a certain period
 #include <ESP8266httpUpdate.h>
+#include <ArduinoJson.h>
+
+
 
 //Control Variables
 int FS_COUNTER;
-
-
-
 
 //defined ssid name and password used to connect to WiFi
 const char* ssid = "Highfive";
@@ -17,53 +17,57 @@ const char* password = "mariposa921";
 //const char* ssid = "dd-wrt";
 //const char* password = "11111111";
 
-
 //WiFiUdp objects need a port to listen, a buffer for incoming packets and a reply message
 WiFiUDP udp; //here an instance of the WiFiUdp object was created
 unsigned int localUdpPort = 4210;
 unsigned int rPort;
 int RemotePort; //Defined to be a Global Variable due the unstable values that this variable can get when receiving packets
 
-
 //Here are defined the Buffer Size for every packet used in Application Layer of TCP/IP
 const int NTP_PACKET_SIZE = 48;
 const int DNS_PACKET_SIZE = 31;
 
-
 int packetSize = 0; //packetSize variable initializated to use readDNSpacket as a function
 byte packetBuffer[255]; //Buffer the generic buffer for receiving packets
-
 
 //Here are defined instances of the class IPAddress to use for functionality and testing
 IPAddress dnsserver(8, 8, 8, 8);
 //IPAddress uLaptop(10, 0, 0, 132);
 
-
 //Here are defined ESP8266 native SDK variables and functions
 ADC_MODE (ADC_VCC); //Necessary requirement to use ESP.getVcc(), allows to reconfigure the ADC to measure from VCC pin
 
-
+const int HTTP_PORT = 80;
 //Here are defined all the variable srelated to dweet.io
-const char* dweet_host = "dweet.io";
-const int httpPort = 80;
+const char* DWEET_HOST = "dweet.io";
 
+//Here are defined all the variable srelated to ipinfo.io
+const char* IPINFO_TOKEN = "54b63ddea9d7b8";
+const char* IPINFO_HOST = "ipinfo.io";
 
 //Ticker library related variables, constants and objects 
 bool FIRST_FLAG;
 bool HELP_FLAG = false;
 Ticker Networking;
-
+Ticker Info;
 
 //Others
 unsigned long previousMillis = 0;
 long int unix_time;
 
-//OTA related variables, contants and objects
-//const char update_host[] = "";
-const char check_host[] = "icvvcm8olb.execute-api.us-east-1.amazonaws.com";
+const char API_ROOT[] = "icvvcm8olb.execute-api.us-east-1.amazonaws.com";
 WiFiClientSecure secureclient;
+const int SSL_PORT = 443;
+//OTA related variables, contants and objects
 int firmware_version;
 int CHIP_ID;
+int model;
+
+//ESP8266 Status Check function realted variables, constants and objects
+int heap_free_size;
+long cpu_inst_cycle;
+long power_supply_v;
+
 
 void setup() {
  
@@ -102,7 +106,7 @@ void setup() {
     delay (10);
   
     //Here will be the code for firmware check and upgrade process
-    firmware_check(firmware_version, model, CHIP_ID, unix_time);
+    //firmware_check(firmware_version, model, CHIP_ID, unix_time);
     //t_httpUpdate_return ret = ESPhttpUpdate.update("http://server/file.bin");
     //ESPhttpUpdate.update("192.168.0.2", httpPort, "/arduino.bin");
   
@@ -138,6 +142,7 @@ void setup() {
     //}
   
     Networking.attach(5, udp_tcp_Networking_flag); //Activate UDP + TCP functionality every 5 seconds
+    Info.attach(10, getESP8266_variable_info); //Prints information relative to the code and board like free Heap, number of CPU instruction count per cycle and the feed received from the Power Supply every 10 seconds
 }
 
    
@@ -148,16 +153,16 @@ void loop() {
         Serial.println("Sending DNS packet to Google´s DNS");
         sendDNS_NTPpacket (dnsserver);
         IPAddress response = readDNSpacket();
-        Serial.print("loop() ---  `response´ variable is: "); Serial.println(response);
         sendNTPpacket (response);
         unix_time = readNTPpacket();
         Serial.println(unix_time);
-        dweeting(); //This lines below handle Dweet.io communication byt TCP-HTTP Communication
+        ipinfo_test();
+        //dweeting(); //This lines below handle Dweet.io communication byt TCP-HTTP Communication
         FIRST_FLAG = false; //This line finishes the while loop for when Ticker activates communication, the communication can be successfully implemented
     }
     
-    getESP8266_variable_info(); //Prints information relative to the code and board like free Heap, number of CPU instruction count per cycle and the feed received from the Power Supply
 }
+
 
 //Here will be defined all the flags (interrumptions) for "Ticker" functionality and LESS CODE AS POSSIBLE IN INTERRUPTS!!!
 void udp_tcp_Networking_flag(){
@@ -252,13 +257,13 @@ IPAddress readDNSpacket() {
         Serial.print("   readpacket() --- The packet received comes from: "); Serial.print(remote); Serial.println(" IP Address");
         Serial.print("   readpacket() --- And from port: "); Serial.println(RemotePort);
         if (RemotePort == 53) {
-        udp.read(packetBuffer, packetSize);
-        Serial.print("      readDNSpacket() -if-- Let´s see if this works, IP Address received is: ");
-        Serial.print(packetBuffer[packetSize - 4]); Serial.print("."); Serial.print(packetBuffer[packetSize - 3]); Serial.print("."); Serial.print(packetBuffer[packetSize - 2]); Serial.print("."); Serial.println(packetBuffer[packetSize - 1]);
-      }
-      IPAddress dnsresponse(packetBuffer[packetSize - 4], packetBuffer[packetSize - 3], packetBuffer[packetSize - 2], packetBuffer[packetSize - 1]);
-      Serial.print("   readpacket() --- Should return: "); Serial.println(dnsresponse);
-      return dnsresponse;
+            udp.read(packetBuffer, packetSize);
+            Serial.print("      readDNSpacket() -if-- Let´s see if this works, IP Address received is: ");
+            Serial.print(packetBuffer[packetSize - 4]); Serial.print("."); Serial.print(packetBuffer[packetSize - 3]); Serial.print("."); Serial.print(packetBuffer[packetSize - 2]); Serial.print("."); Serial.println(packetBuffer[packetSize - 1]);
+        }
+        IPAddress dnsresponse(packetBuffer[packetSize - 4], packetBuffer[packetSize - 3], packetBuffer[packetSize - 2], packetBuffer[packetSize - 1]);
+        Serial.print("   readpacket() --- Should return: "); Serial.println(dnsresponse);
+        return dnsresponse;
     }
   
     else {
@@ -336,66 +341,91 @@ void getESP8266_variable_info() {
 
 void dweeting() {
     WiFiClient client;
-    Serial.println(dweet_host);
-    if (!client.connect(dweet_host, httpPort)) { //Enables TCP Connection with dweet.io
+    Serial.println(DWEET_HOST);
+    if (!client.connect(DWEET_HOST, HTTP_PORT)) { //Enables TCP Connection with dweet.io
         Serial.println("connection failed");
         return;
     } 
-    client.print(String("GET /dweet/for/myesp8266-esp01?unix_time=") + String(unix_time) + //Sends the HTTP GET request to dweet.io
-                 " HTTP/1.1\r\n" +
-                 "Host: " + dweet_host + "\r\n" + 
-                 "Connection: close\r\n\r\n");
+    client.print(String("GET /dweet/for/myesp8266-esp01?unix_time=") + String(unix_time) + " HTTP/1.1\r\n" + "Host: " + DWEET_HOST + "\r\n" + "Connection: close\r\n\r\n"); //Sends the HTTP GET request to dweet.io             
     delay(10);
-
     Serial.println("Begin reading");
     while (client.connected()) { //Reads and print response of the server
         while(client.available()) {
             String line; //= "Begin to read"; Serial.print(line);
             line = client.readStringUntil('\r');
             Serial.print(line);
-            //line = "Finish reading"; Serial.print(line);
         }  
     }    
-    Serial.println("Finish reading");
+    Serial.println("");Serial.println("Finish reading");
 }
 
-char firmware_check(int fw_version, int model, int chip_id, long int current_time){
-    //Serial.print("Current Firmware Version: "); Serial.println(fw_version);
+void ipinfo_test() {
+    WiFiClient client;
+    Serial.println(IPINFO_HOST);
+    if (!client.connect(IPINFO_HOST, HTTP_PORT)) { //Enables TCP Connection with dweet.io
+        Serial.println("connection failed");
+        return;
+    }   
+    client.print(String("GET /8.8.8.8/geo") + " HTTP/1.1\r\n" + "Host: " + IPINFO_HOST + "\r\n" + "Connection: close\r\n\r\n"); //Sends the HTTP GET request to ipinfo.io
+    delay(10);            
+    Serial.println("Begin reading");
+    while (client.connected()) { //Reads and print response of the server
+        while(client.available()) {
+            String line; //= "Begin to read"; Serial.print(line);
+            line = client.readStringUntil('\r');
+            Serial.print(line);
+        }  
+    }
+    Serial.println("");Serial.println("Finish reading");
+}              
+
+char status_report() {
     delay (10);
-    if (secureclient.connect(check_host, 443)) {
+    if (secureclient.connect(API_ROOT, SSL_PORT)) {
         Serial.println("API Gateway Connected");
-        Serial.println(fw_version);
-        String URL = String("/dev/develop/esp8266?version=") + fw_version + String("&model=") + model + String("&id=") + chip_id + String("&time=") + current_time;
+        String URL = String("/dev/develop/esp8266?freeheap=") + heap_free_size + String("&vcc=") + power_supply_v + String("&id=") + CHIP_ID + String("&time=") + unix_time;
         Serial.println(URL);
         secureclient.println("GET " + URL + " HTTP/1.1");
         secureclient.print("Host: ");
-        secureclient.println(check_host);
+        secureclient.println(API_ROOT);
         secureclient.println("User-Agent: arduino/1.0");
         secureclient.println("Connection: close");
         secureclient.println("");
     }
-  
     while (!secureclient.available()) {
         delay(100);
     }
     while (secureclient.connected()) { //Reads and print response of the server
-        Ticker HELP;
-        HELP.attach (5, help);
-      
         while(secureclient.available()) { 
             String line;
             line = secureclient.readStringUntil('\r');
             Serial.print(line);
-            if (HELP_FLAG) {
-                secureclient.stop();
-                Serial.println("Connection is being closed");
-                HELP_FLAG = false;
-                Serial.println(HELP_FLAG);
-            }
         }      
     }
 }
 
-void help() {
-      HELP_FLAG = true;
+char firmware_check(int fw_version, int model, int chip_id, long int current_time) {
+    delay (10);
+    if (secureclient.connect(API_ROOT, SSL_PORT)) {
+        Serial.println("API Gateway Connected");
+        Serial.println(fw_version);
+        String URL = String("/dev/develop/esp8266?version=") + firmware_version + String("&model=") + model + String("&id=") + CHIP_ID + String("&time=") + unix_time;
+        Serial.println(URL);
+        secureclient.println("GET " + URL + " HTTP/1.1");
+        secureclient.print("Host: ");
+        secureclient.println(API_ROOT);
+        secureclient.println("User-Agent: arduino/1.0");
+        secureclient.println("Connection: close");
+        secureclient.println("");
+    }
+    while (!secureclient.available()) {
+        delay(100);
+    }
+    while (secureclient.connected()) { //Reads and print response of the server
+        while(secureclient.available()) { 
+            String line;
+            line = secureclient.readStringUntil('\r');
+            Serial.print(line);
+        }      
+    }
 }
