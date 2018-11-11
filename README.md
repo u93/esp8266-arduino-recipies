@@ -1,4 +1,4 @@
-# ESP8266
+# ESP8266 Wi-Fi Module (Bare Metal - No RTOS)
 In the following examples will be showed the use of different libraries and protocols by the ESP8266 using Arduino Core and Arduino IDE
 
 
@@ -7,7 +7,7 @@ In the following examples will be showed the use of different libraries and prot
 - Make sure that the OS has the drivers to use the USB-UART adaptor
   - If using macOS can install this [software](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers) 
 
-## ESP8266 Wiring and Power Supply
+## ESP8266 Wiring and Power Supply (NOT READY YET)
 
 
 ## Flash Firmware to ESP8266 (Subject to changes)
