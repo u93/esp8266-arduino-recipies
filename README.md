@@ -17,7 +17,7 @@ In the following examples will be showed the use of different libraries and prot
     - In Linux (Ubuntu in this case)or macOS could exist "lack of permissions to use the USB port", in that case you will see an error like "espcomm_open failed" and "espcomm_upload_mem failed". In that case the next command has to be executed every time that you plan to set a new firmware using the Serial Port "sudo chmod -R 777 /dev/ttyUSB0" (if using Ubuntu) or "sudo chmod 777 /dev/tty.SLAB_USBtoUART" (if using macOS) changing "ttyUSB0" for you actual serial port with connection to the ESP8266 
 
 
-## Integration examples
+## Integration examples (Subject to improvements)
 - dweet.io
   - To learn about Dweet visit the [website](http://dweet.io/).
   - To see a way of how to implement review the next [example](https://github.com/eebf1993/myesp8266/blob/master/examples/dweet.io_NTP/dweet.io_NTP.ino).
