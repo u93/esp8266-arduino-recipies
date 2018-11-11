@@ -9,7 +9,7 @@ In the following examples will be showed the use of different libraries and prot
 
 ## ESP8266 Wiring and Power Supply (NOT READY YET)
 
-## Flash Firmware to ESP8266
+## Flash Firmware to ESP8266 (Subject to changes)
 - ESP8266 has to be set in BOOTLOADER mode, for this to happen the ESP8266 needs to be powered up with GP 0 pin set to "ground" in order to set it in BOOTLOADER mode.
   - If you have a firmware already uploaded you can confirm that the Wi-Fi module is ready to receive a new firmware due to "Serial Logs" absence. 
   - In some cases you will see some errors like "espcomm_upload_mem failed" twice this could be the ESP9266 is not set in BOOTLOADER mode.
