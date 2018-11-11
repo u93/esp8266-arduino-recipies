@@ -358,6 +358,7 @@ void dweeting() {
     Serial.println("");Serial.println("Finish reading");
 }
 
+<<<<<<< HEAD
 void ipinfo_test() {
     WiFiClient client;
     Serial.println(IPINFO_HOST);
@@ -379,10 +380,19 @@ void ipinfo_test() {
 }              
 
 char status_report() {
+=======
+char firmware_check(int fw_version, int model, int chip_id, long int current_time){
+    //Serial.print("Current Firmware Version: "); Serial.println(fw_version);
+>>>>>>> master
     delay (10);
     if (secureclient.connect(API_ROOT, SSL_PORT)) {
         Serial.println("API Gateway Connected");
+<<<<<<< HEAD
         String URL = String("/dev/develop/esp8266/statusreport?freeheap=") + heap_free_size + String("&vcc=") + power_supply_v + String("&id=") + CHIP_ID + String("&time=") + unix_time;
+=======
+        Serial.println(fw_version);
+        String URL = String("/dev/develop/esp8266?version=") + fw_version + String("&model=") + model + String("&id=") + chip_id + String("&time=") + current_time;
+>>>>>>> master
         Serial.println(URL);
         secureclient.println("GET " + URL + " HTTP/1.1");
         secureclient.print("Host: ");
