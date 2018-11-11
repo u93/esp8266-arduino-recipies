@@ -31,7 +31,7 @@ IPAddress dnsServer(8, 8, 8, 8);
 ADC_MODE (ADC_VCC); //Necessary requirement to use ESP.getVcc(), allows to reconfigure the ADC to measure from VCC pin
 
 //Ticker library related variables, constants and objects 
-bool loopFlag;
+bool loopFlag = true;
 Ticker schedule;
 
 //Others
@@ -109,8 +109,7 @@ void setup() {
     }
 
     schedule.attach(5, loopFlagFunction); // Activate "loop()" functionality every 5 seconds
-    schedule.attach(10, sendKeepAlive); // Sends KeepAlive to AWS IoT every 10 seconds
-    schedule.attach(20, thingDisconnect);   
+    schedule.attach(10, sendKeepAlive); // Sends KeepAlive to AWS IoT every 10 seconds  
 }
 
 
@@ -127,6 +126,7 @@ void loop() {
         }
         sendMessage(2);
         loopFlag = false; //This line finishes the while loop for when Ticker activates communication, the communication can be successfully implemented
+        //thingDisconnect();
     }
     
 }
@@ -192,12 +192,13 @@ void sendKeepAlive() {
 }
 
 
-void thingDisconnect() {  
-    client.disconnect();   
+void thingDisconnect() { 
+    Serial.println("Disconnecting..."); 
+    client.disconnect();  // Gracefully disconnect from AWS IoT broker triggering Last Will Testament message set at connection time
 }
 
 
-void loopFlagFunction(){
+void loopFlagFunction() {
     loopFlag = true;
 }
 
