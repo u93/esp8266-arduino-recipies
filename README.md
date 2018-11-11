@@ -7,7 +7,7 @@ In the following examples will be showed the use of different libraries and prot
 - Make sure that the OS has the drivers to use the USB-UART adaptor
   - If using macOS can install this [software](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers) 
 
-## ESP8266 Wiring and Power Supply
+## ESP8266 Wiring and Power Supply (NOT READY YET)
 
 ## Flash Firmware to ESP8266
 - ESP8266 has to be set in BOOTLOADER mode, for this to happen the ESP8266 needs to be powered up with GP 0 pin set to "ground" in order to set it in BOOTLOADER mode.
