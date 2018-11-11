@@ -1,4 +1,4 @@
-# ESP8266
+# ESP8266 Wi-Fi Module (Bare Metal - No RTOS)
 In the following examples will be showed the use of different libraries and protocols by the ESP8266 using Arduino Core and Arduino IDE
 
 
